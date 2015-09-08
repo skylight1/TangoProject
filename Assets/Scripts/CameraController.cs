@@ -28,15 +28,15 @@ public class CameraController : MonoBehaviour {
 
 		if(Input.GetKey(KeyCode.RightArrow))
 		{
-			Camera.current.transform.Translate(new Vector3(speed * Time.deltaTime,0,0));
+			transform.Translate(new Vector3(speed * Time.deltaTime,0,0));
 		}
 		if(Input.GetKey(KeyCode.LeftArrow))
 		{
-			Camera.current.transform.Translate(new Vector3(-speed * Time.deltaTime,0,0));
+			transform.Translate(new Vector3(-speed * Time.deltaTime,0,0));
 		}
 		if(Input.GetKey(KeyCode.DownArrow))
 		{
-			Camera.current.transform.Translate(new Vector3(0, 0, -speed * Time.deltaTime));
+			transform.Translate(new Vector3(0, 0, -speed * Time.deltaTime));
 		}
 		if(Input.GetKey(KeyCode.UpArrow))
 		{

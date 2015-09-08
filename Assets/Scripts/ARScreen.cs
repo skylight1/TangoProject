@@ -34,6 +34,7 @@ public class ARScreen : MonoBehaviour
 {
 	public Camera m_renderCamera;
 	public Material m_screenMaterial;
+	public GameObject m_table;
 	
 	// Values for debug display.
 	[HideInInspector]
@@ -90,6 +91,7 @@ public class ARScreen : MonoBehaviour
 				m_tangoApplication.RegisterPermissionsCallback(_OnTangoApplicationPermissionsEvent);
 				m_tangoApplication.RequestNecessaryPermissionsAndConnect();
 				m_tangoApplication.Register(this);
+				m_renderCamera.clearFlags = CameraClearFlags.SolidColor;
 			}
 			else
 			{
