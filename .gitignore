@@ -22,4 +22,6 @@ sysinfo.txt
 
 *.apk
 
-*.meta
+*.pidb.meta
+
+sysinfo.txt
