@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class TimothyTest : MonoBehaviour {
+	private enum GamePhase {
+		LocateTable, PlayGame
+	}
 
 	/////
 	bool DEBUG = true;
@@ -22,10 +25,13 @@ public class TimothyTest : MonoBehaviour {
 	public Camera m_camera;
 	public GameObject m_bounceSurfacePrefab;
 	public GameObject m_reticle;
+	public GameObject m_ballManager;
 
 	private bool m_onTarget;
 	private Vector3 targetPosition;
 	private Quaternion targetRotation;
+
+	private GamePhase gamePhase = GamePhase.LocateTable;
 
 	/////
 	int nupdates = 0;
@@ -39,18 +45,20 @@ public class TimothyTest : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		updateTargetPositionAndRotation ();
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			createBounceSurface ();
-		}
-		
-		for (var i = 0; i < Input.touchCount; ++i) {
-			if (Input.GetTouch(i).phase == TouchPhase.Began) {
+		if (gamePhase == GamePhase.LocateTable) {
+			updateTargetPositionAndRotation ();
+			if (Input.GetKeyDown (KeyCode.Space)) {
 				createBounceSurface ();
 			}
-		}
+		
+			for (var i = 0; i < Input.touchCount; ++i) {
+				if (Input.GetTouch (i).phase == TouchPhase.Began) {
+					createBounceSurface ();
+				}
+			}
 
-		m_reticle.GetComponent<Renderer> ().material.color = m_onTarget ? Color.green : Color.red;
+			m_reticle.GetComponent<Renderer> ().material.color = m_onTarget ? Color.green : Color.red;
+		}
 	}
 	
 	private void updateTargetPositionAndRotation() {
@@ -150,6 +158,10 @@ public class TimothyTest : MonoBehaviour {
 		m_bounceSurface.transform.rotation = targetRotation;
 		
 		m_bounceSurface.transform.position = targetPosition;
+
+		gamePhase = GamePhase.PlayGame;
+		m_ballManager.SetActive (true);
+		m_tangoPointCloud.gameObject.SetActive(false);
 	}
 
 
