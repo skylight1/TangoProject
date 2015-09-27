@@ -3,6 +3,8 @@ using System.Collections;
 
 public class BottomOfCup : MonoBehaviour {
 
+	public GameObject m_scoreText;
+
 	void Start () {
 	
 	}
@@ -12,7 +14,14 @@ public class BottomOfCup : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		Debug.Log ("SCORE!!!!!");
+		StartCoroutine(ShowScoreMessage());
+
 		other.gameObject.SetActive (false);
+	}
+
+	IEnumerator ShowScoreMessage() {
+		m_scoreText.SetActive (true);
+		yield return new WaitForSeconds (2);
+		m_scoreText.SetActive (false);
 	}
 }
